@@ -527,12 +527,14 @@ class NativePlayer extends PlatformPlayer {
       // ---------------------------------------------
       current.add(media);
       // ---------------------------------------------
-      final command = "loadfile '${media.uri}' append".toNativeUtf8();
-      mpv.mpv_command_string(
-        ctx,
-        command.cast(),
+
+      await _command(
+        [
+          'loadfile',
+          media.uri,
+          'append',
+        ],
       );
-      calloc.free(command.cast());
     }
 
     if (synchronized) {
@@ -2657,7 +2659,7 @@ class NativePlayer extends PlatformPlayer {
     final pointers = args.map<Pointer<Utf8>>((e) => e.toNativeUtf8()).toList();
     final arr = calloc<Pointer<Utf8>>(128);
     for (int i = 0; i < args.length; i++) {
-      arr.elementAt(i).value = pointers[i];
+      arr[i] = pointers[i];
     }
     mpv.mpv_command(
       ctx,
