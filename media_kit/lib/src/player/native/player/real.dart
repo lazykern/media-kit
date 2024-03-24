@@ -527,8 +527,7 @@ class NativePlayer extends PlatformPlayer {
       // ---------------------------------------------
       current.add(media);
       // ---------------------------------------------
-
-      final command = 'loadfile ${media.uri} append'.toNativeUtf8();
+      final command = "loadfile '${media.uri}' append".toNativeUtf8();
       mpv.mpv_command_string(
         ctx,
         command.cast(),
